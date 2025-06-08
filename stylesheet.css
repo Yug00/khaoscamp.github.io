@@ -1,5 +1,5 @@
 /*
-
+6月は日が長くて嬉しい。
 */
 
 body {
@@ -28,12 +28,21 @@ body {
     align-items: center;
     z-index: 99;
     transition: all 0.5s linear;
+    background-image: url('image/loader.png');
+    background-size: cover;
 }
 
 .loader.loaded {
     /*0.5秒かけてopacityを0にする*/
     opacity: 0;
     visibility: hidden;
+}
+
+.loader p {
+    color: #ffffff;
+    font-size: 24px;
+    margin: 0;
+    text-align: center;
 }
 
 span {
@@ -55,13 +64,24 @@ header {
     align-items: center;       /* 垂直方向に中央配置 */
     height: 100vh;             /* ビューポートの高さに合わせる */
     width: 100%; 
+    background-image: url('image/mainVisual.png');
+    background-size: cover;
 }
 
 #title {
     font-size: 120px;            /* タイトルのフォントサイズ */
-    color: #333;               /* タイトルの文字色 */
+    color: #ffffff;               /* タイトルの文字色 */
     margin-bottom: 20px;  
     text-align: left;     /* タイトルとコンテンツの間にスペースを追加 */
+}
+
+.self-introduction {
+    font-size: 24px;            /* 自己紹介のフォントサイズ */
+    color: #ffffff;             /* 自己紹介の文字色 */
+    text-align: left;           /* 左揃え */
+    background-image: url('image/introBackground.png');   
+    background-size: 100% 100%;
+
 }
 
 /* ポップアップコンテンツのスタイル（初期状態で非表示） */
