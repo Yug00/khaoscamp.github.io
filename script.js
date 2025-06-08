@@ -1,7 +1,5 @@
 /*
-
-
-
+万博、すっごい混んでた。
 */
 
 const popupBtns = document.querySelectorAll('.popup-btn'); // 複数のボタンを取得
