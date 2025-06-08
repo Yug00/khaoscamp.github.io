@@ -8,7 +8,6 @@ body {
     justify-content: center;
     align-items: center;
     text-align: center;
-    height: 100vh;
     margin: 0;
     background-color: #f4f4f4;
     background-size: cover;   /* 親要素全体をカバー */
@@ -36,6 +35,22 @@ body {
     /*0.5秒かけてopacityを0にする*/
     opacity: 0;
     visibility: hidden;
+}
+
+.loader img{
+    width: 300px;  /* 画像の幅（適宜調整） */
+    position: absolute;  /* 絶対位置 */
+    left: -100px;  /* 初期位置を画面外（左端）に設定 */
+    animation: moveRight 2.5s linear infinite;  /* アニメーションを設定 */
+}
+
+@keyframes moveRight {
+    0% {
+        left: 100px;  /* 最初の位置（左端） */
+    }
+    100% {
+        left: 100%;  /* 最後の位置（右端） */
+    }
 }
 
 .loader p {
@@ -80,8 +95,25 @@ header {
     color: #ffffff;             /* 自己紹介の文字色 */
     text-align: left;           /* 左揃え */
     background-image: url('image/introBackground.png');   
-    background-size: 100% 100%;
+    background-size: 100% auto;
 
+}
+
+.works {
+    display: flex;              /* Flexboxレイアウトを使用 */
+    flex-wrap: wrap;           /* 複数行に折り返す */
+    justify-content: center;   /* 中央に配置 */
+    gap: 20px;                 /* アイテム間のスペース */
+    background-image: url('image/worksBackround.png');        /* 上部のマージン */
+    background-size: cover;    /* 背景画像をカバー */
+    height: 100vh;             /* ビューポートの高さに合わせる */
+    width: 100%;
+}
+
+.worksTitle {
+    width: 500px;
+    text-align: center;        /* 中央揃え */
+    margin-bottom: 20px;      /* 下部のマージン */
 }
 
 /* ポップアップコンテンツのスタイル（初期状態で非表示） */
@@ -137,6 +169,15 @@ header {
     border-radius: 50%;
 }
 
+footer {
+    background-color: #333; /* フッターの背景色 */
+    color: #fff;            /* フッターの文字色 */
+    text-align: center;     /* 中央揃え */
+    padding: 20px;          /* パディング */
+    position: relative;     /* 相対位置 */
+    background-color: #fcebdd;
+}
+
 button {
     padding: 10px 20px;
     font-size: 16px;
@@ -161,7 +202,7 @@ button {
     max-height: 500px; /* アニメーションで展開される最大の高さ */
 }
 
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 124px) {
     .pc {
         display: none; /* パソコンではメッセージを非表示 */
     }
