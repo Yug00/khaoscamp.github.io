@@ -95,6 +95,8 @@ header {
 }
 
 .self-introduction {
+    width: 100%;              /* 親要素の幅に合わせる */
+    height: auto;           /* ビューポートの高さに合わせる */
     font-size: 24px;            /* 自己紹介のフォントサイズ */
     color: #ffffff;             /* 自己紹介の文字色 */
     text-align: left;           /* 左揃え */
@@ -103,8 +105,8 @@ header {
 }
 
 .me {
-    width: 100%;  /* 親要素の幅に合わせて画像をリサイズ */
-    height: auto; /* 高さは自動で調整し、アスペクト比を維持 */
+    width: 100%;              /* 親要素の幅に合わせる */
+    height: auto;           /* ビューポートの高さに合わせる */
 }
 
 .works {
@@ -114,7 +116,6 @@ header {
     gap: 20px;                 /* アイテム間のスペース */
     background-image: url('image/worksBackround.png');        /* 上部のマージン */
     background-size: cover;    /* 背景画像をカバー */
-    height: 100vh;             /* ビューポートの高さに合わせる */
     width: 100%;
 }
 
@@ -124,6 +125,8 @@ header {
     gap: 10px;  /* 画像間のスペース */
     justify-content: space-between;  /* 画像を横に等間隔に配置 */
     width: 70%;
+    margin-bottom: 100px;  /* 下部のマージン */
+    margin: auto;
 }
 
 /* 画像のスタイル */
@@ -137,12 +140,9 @@ header {
     transition: transform 0.3s ease;
 }
 
-
 .work-img:hover{
     transform: scale(1.2); /* 1.2倍に拡大 */
 }
-
-
 
 .worksTitle {
     width: 500px;
@@ -186,63 +186,110 @@ header {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 影をつけて立体感を出す */
 }
 
-/* ギャラリーの親コンテナ */
-.gallery-container {
-    width: 90%;                  /* コンテナの幅を親要素に対して90% */
-    height: 100%;                /* 高さを100%に設定 */
-    overflow-x: scroll;         /* 横スクロールを有効にする */
-    overflow-y: hidden;         /* 縦スクロールを無効にする */
-    margin-right: 5%;
-
+.carousel-container {
+    position: relative;
+    width: 70%;                  /* カルーセルの幅 */
+    margin: 20px auto;           /* センターに配置 */
+    overflow: hidden;            /* 親要素を超えた部分を隠す */
 }
 
-/* ギャラリー内の画像を横並びにする */
-.gallery {
-    display: flex;              /* 画像を横並びにする */
-    gap: 10%;                  /* 画像間のスペース */
+.carousel {
+    display: flex;               /* 横並びにする */
+    transition: transform 0.5s ease; /* スライドのアニメーション */
 }
 
-/* 画像のスタイル */
-.gallery img {
-    width: 100%; /* 画像の幅をコンテナに合わせる */
-    height: auto; /* 高さを自動調整 */
-    scroll-snap-align: start; /* 画像が切れ目で止まるように設定 */
-    object-fit: cover; /* 画像の表示方法を調整 */
+.carousel-slide {
+    flex-shrink: 0;              /* 画像のサイズが縮小しないように */
+    width: 100%;                 /* 画像の幅を親要素に合わせる */
+    display: flex;                /* フレックスボックスを使用 */
+    align-items: center;          /* 縦方向中央揃え */
+    justify-content: center;       /* 横方向中央揃え */
 }
 
-/* スクロールバーのスタイル（オプション） */
-.gallery-container::-webkit-scrollbar {
-    height: 8px;  /* スクロールバーの高さ */
+.carousel-slide img {
+    width: auto;            /* 横幅を100%に設定 */
+    height: 550px;           /* 高さを親要素に合わせる */
 }
 
-.gallery-container::-webkit-scrollbar-thumb {
-    background-color: #888;  /* スクロールバーの色 */
-    border-radius: 4px;  /* スクロールバーの角を丸くする */
+
+.carousel-arrow {
+    position: absolute;
+    top: 50%;                      /* 矢印を縦方向中央に配置 */
+    transform: translateY(-50%);   /* 中央揃え */
+    background-color: rgba(0, 0, 0, 0.5); /* 半透明の背景 */
+    color: white;                  /* 矢印の色 */
+    font-size: 30px;               /* 矢印のフォントサイズ */
+    padding: 10px;
+    border: none;
+    cursor: pointer;              /* クリック可能なカーソル */
+    z-index: 10;                   /* 矢印が画像より前面に表示されるように設定 */
 }
 
-.gallery-container::-webkit-scrollbar-thumb:hover {
-    background-color: #555;  /* ホバー時の色 */
+.left-arrow {
+    left: 0;                       /* 左端に配置 */
+}
+
+.right-arrow {
+    right: 0;                      /* 右端に配置 */
+}
+
+.thumbnails {
+    display: flex;
+    justify-content: center;       /* サムネイルを中央に配置 */
+    gap: 10px;                     /* サムネイル間のスペース */
+    margin-top: 10px;              /* 上部のマージン */
+}
+
+.thumbnail {
+    width: 60px;                   /* サムネイルの幅 */
+    height: 60px;                  /* サムネイルの高さ */
+    overflow: hidden;              /* サムネイル内の画像がはみ出さないようにする */
+    cursor: pointer;              /* クリック可能なカーソル */
+    border: 2px solid transparent; /* 選択されていない時のボーダー */
+    border-radius: 10px;           /* サムネイルを丸みをつける */
+}
+
+.thumbnail img {
+    width: 100%;                   /* サムネイル画像の幅を親要素に合わせる */
+    height: 100%;                  /* サムネイル画像の高さを親要素に合わせる */
+    object-fit: cover;             /* 画像が親要素に収まるように */
+}
+
+/* サムネイル選択時のスタイル */
+.thumbnail.selected {
+    border-color: #00f;            /* 選択されているサムネイルのボーダー色 */
 }
 
 .caption {
     color: #333; /* キャプションの文字色 */
     margin-top: 10px; /* 上部のマージン */
     width: 45%;
+    justify-content: flex-end;    /* 横方向右寄せ */
 }
 
 
 /* 閉じるボタン */
 .close-btn {
+    width: 50px;                  /* ボタンの幅 */
+    height: 50px;                 /* ボタンの高さ */
     position: absolute;
     top: 10px;
     right: 10px;
     color: white;
     background-color: rgba(0, 0, 0, 0.7);
     border: none;
-    font-size: 24px;
-    cursor: pointer;
+    font-size: 40px;
     padding: 10px;
     border-radius: 50%;
+    display: flex;                /* 中央揃え */
+    justify-content: center;      /* 水平方向中央 */
+    align-items: center;          /* 垂直方向中央 */
+    cursor: pointer;             /* ポインタが表示される */
+    transition: background-color 0.3s ease; /* ホバー時に色が変わるアニメーション */
+}
+
+.close-btn:hover {
+    background-color: #f44336;    /* ホバー時の背景色 */
 }
 
 footer {
