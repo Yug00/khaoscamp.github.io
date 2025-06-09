@@ -110,6 +110,34 @@ header {
     width: 100%;
 }
 
+.workContainer {
+    display: flex;  /* flexboxレイアウトを適用 */
+    flex-wrap: wrap;  /* コンテナ内で画像が折り返されるようにする */
+    gap: 10px;  /* 画像間のスペース */
+    justify-content: space-between;  /* 画像を横に等間隔に配置 */
+    width: 75%;
+}
+
+/* 画像のスタイル */
+.work-img {
+    width: calc(25% - 10px);  /* 1行4個、幅は親の25% - 画像間隔分 */
+    height: auto;  /* 高さは自動調整 */
+    border-radius: 8px;  /* 画像の角を丸くする（任意） */
+    object-fit: cover;  /* 画像が容器にぴったり収まるように調整 */
+}
+
+.work-img {
+    width: 250px;
+    cursor: pointer; /* クリックできるカーソル */
+    transition: transform 0.3s ease;
+}
+
+.work-img:hover{
+    transform: scale(1.2); /* 1.2倍に拡大 */
+}
+
+
+
 .worksTitle {
     width: 500px;
     text-align: center;        /* 中央揃え */
@@ -122,7 +150,7 @@ header {
     font-family: Arial, sans-serif;
 }
 
-.popup-overlay {
+.popup {
     display: none; /* 初期状態では非表示 */
     position: fixed;
     top: 0;
@@ -136,24 +164,51 @@ header {
 
 /* ポップアップ画像のスタイル */
 .popup-content {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    max-width: 80%;
-    max-height: 80%;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    max-width: 800px;
+    width: 80%;
+    position: relative;
 }
 
-/* 通常画像 */
-.work-img {
-    width: 300px;
-    cursor: pointer; /* クリックできるカーソル */
-    transition: transform 0.3s ease;
+/* ギャラリーの親コンテナ */
+.gallery-container {
+    width: 100%;  /* コンテナの幅を100%に設定 */
+    height: 300px;  /* 高さを固定（調整可能） */
+    overflow-x: scroll;  /* 横スクロールを有効にする */
+    scroll-snap-type: x mandatory;  /* スクロール時に1枚ずつスナップ */
+    -webkit-overflow-scrolling: touch;  /* スムーズスクロールを有効にする（モバイル用） */
 }
 
-.work-img:hover{
-    transform: scale(1.2); /* 1.2倍に拡大 */
+/* ギャラリー内の画像を横並びにする */
+.gallery {
+    display: flex; /* 横方向に並べる */
 }
+
+/* 画像のスタイル */
+.gallery-image {
+    width: 200px;  /* 画像の幅（調整可能） */
+    height: auto;  /* 高さは自動調整 */
+    scroll-snap-align: center;  /* 画像がスクロールの中心にスナップ */
+    margin-right: 10px;  /* 画像間のスペース */
+}
+
+/* スクロールバーのスタイル（オプション） */
+.gallery-container::-webkit-scrollbar {
+    height: 8px;  /* スクロールバーの高さ */
+}
+
+.gallery-container::-webkit-scrollbar-thumb {
+    background-color: #888;  /* スクロールバーの色 */
+    border-radius: 4px;  /* スクロールバーの角を丸くする */
+}
+
+.gallery-container::-webkit-scrollbar-thumb:hover {
+    background-color: #555;  /* ホバー時の色 */
+}
+
 
 /* 閉じるボタン */
 .close-btn {
