@@ -343,7 +343,11 @@ button {
     padding: 0 15px;
     display: none; /* 隠しておく */
     background-color: #f9f9f9;
-    font-size: 14px;
+    font-size: 20px;
+}
+
+.accordion-content p {
+    font-size: 15px;
 }
 
 @media screen and (max-width: 124px) {
