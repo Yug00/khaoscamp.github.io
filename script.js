@@ -14,7 +14,10 @@ const loadingTime = 2000
 const textTime = 40
 const toggleButton = document.getElementById('toggleButton');
 const toggleContent = document.getElementById('toggleContent');
-
+const carousels = document.querySelectorAll('.carousel');
+const leftArrows = document.querySelectorAll('.left-arrow');
+const rightArrows = document.querySelectorAll('.right-arrow');
+const thumbnails = document.querySelectorAll('.thumbnail');
 
 //ページの読み込み完了時に処理を実行
 window.addEventListener("load", () => {
@@ -52,6 +55,7 @@ function typeText() {
     }
 }
 
+
 // 最初に文字のタイプライティングを開始
 setTimeout(typeText, loadingTime);
 
@@ -73,8 +77,7 @@ closeBtns.forEach((btn) => {
         document.body.style.overflow = "auto";
         setTimeout(() => {
             btn.closest('.popup').style.display = 'none'; // 非表示にする
-            document.body.style.overflow = "auto";
-        }, 1000); // opacityのアニメーションが終わった後に非表示にする
+        }, 500); // opacityのアニメーションが終わった後に非表示にする
     });
 });
 
@@ -86,7 +89,7 @@ popups.forEach((popup) => {
             document.body.style.overflow = "auto";
             setTimeout(() => {
                 popup.style.display = 'none'; // 非表示にする
-            }, 1000); // opacityのアニメーションが終わった後に非表示にする
+            }, 500); // opacityのアニメーションが終わった後に非表示にする
         }
     });
 });
@@ -95,4 +98,50 @@ popups.forEach((popup) => {
 toggleButton.addEventListener('click', function() {
     // 'show'クラスをトグル（切り替え）
     toggleContent.classList.toggle('show');
+});
+
+carousels.forEach((carousel, index) => {
+    const slides = carousel.querySelectorAll('.carousel-slide');
+    const slideWidth = slides[0].offsetWidth;
+    let currentIndex = 0;
+
+    // 左矢印のクリックイベント
+    leftArrows[index].addEventListener('click', () => {
+        if (currentIndex > 0) {
+            currentIndex--;  // インデックスを1減らす
+        }
+        updateCarousel(carousel, currentIndex, slideWidth);
+    });
+
+    // 右矢印のクリックイベント
+    rightArrows[index].addEventListener('click', () => {
+        if (currentIndex < slides.length - 1) {
+            currentIndex++;  // インデックスを1増やす
+        }
+        updateCarousel(carousel, currentIndex, slideWidth);
+    });
+
+    // サムネイルのクリックイベント
+    const carouselThumbnails = document.querySelectorAll(`.thumbnails[data-carousel-id="${index + 1}"] .thumbnail`);
+    carouselThumbnails.forEach((thumbnail, thumbnailIndex) => {
+        thumbnail.addEventListener('click', () => {
+            currentIndex = thumbnailIndex;
+            updateCarousel(carousel, currentIndex, slideWidth);
+        });
+    });
+
+    // カルーセルを更新する関数
+    function updateCarousel(carousel, currentIndex, slideWidth) {
+        const newTransformValue = -currentIndex * slideWidth;
+        carousel.style.transform = `translateX(${newTransformValue}px)`;  // スライドを移動
+        
+        // サムネイルの選択状態を更新
+        carouselThumbnails.forEach((thumbnail, index) => {
+            if (index === currentIndex) {
+                thumbnail.classList.add('selected');
+            } else {
+                thumbnail.classList.remove('selected');
+            }
+        });
+    }
 });
