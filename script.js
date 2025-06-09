@@ -58,7 +58,7 @@ setTimeout(typeText, loadingTime);
 // 各ポップアップボタンをクリックしたときに対応するポップアップを表示
 popupBtns.forEach((btn, index) => {
     btn.addEventListener('click', () => {
-        popups[index].style.display = 'block'; // 対応するポップアップを表示
+        popups[index].style.display = 'flex'; // 対応するポップアップを表示
         document.body.style.overflow = "hidden";
         setTimeout(() => {
             popups[index].style.opacity = 1; // フェードインして表示
