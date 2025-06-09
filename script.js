@@ -18,6 +18,7 @@ const carousels = document.querySelectorAll('.carousel');
 const leftArrows = document.querySelectorAll('.left-arrow');
 const rightArrows = document.querySelectorAll('.right-arrow');
 const thumbnails = document.querySelectorAll('.thumbnail');
+const accordionButtons = document.querySelectorAll('.accordion-button');
 
 //ページの読み込み完了時に処理を実行
 window.addEventListener("load", () => {
@@ -94,48 +95,63 @@ popups.forEach((popup) => {
     });
 });
 
-// ボタンクリック時にトグルする関数
-toggleButton.addEventListener('click', function() {
-    // 'show'クラスをトグル（切り替え）
-    toggleContent.classList.toggle('show');
+accordionButtons.forEach(button => {
+    button.addEventListener('click', function () {
+        const content = this.nextElementSibling; // クリックしたボタンの次にあるコンテンツ
+        
+        // すべてのアコーディオンのコンテンツを閉じる
+        document.querySelectorAll('.accordion-content').forEach(item => {
+            if (item !== content) {
+                item.style.display = 'none';
+            }
+        });
+
+        // クリックしたセクションを開閉する
+        if (content.style.display === 'block') {
+            content.style.display = 'none';
+        } else {
+            content.style.display = 'block';
+        }
+    });
 });
 
+// カルーセルの各スライドに対して設定
 carousels.forEach((carousel, index) => {
     const slides = carousel.querySelectorAll('.carousel-slide');
-    const slideWidth = slides[0].offsetWidth;
     let currentIndex = 0;
 
-    // 左矢印のクリックイベント
+    // 左矢印クリック時
     leftArrows[index].addEventListener('click', () => {
         if (currentIndex > 0) {
-            currentIndex--;  // インデックスを1減らす
+            currentIndex--;
         }
-        updateCarousel(carousel, currentIndex, slideWidth);
+        updateCarousel(carousel, slides, currentIndex);
     });
 
-    // 右矢印のクリックイベント
+    // 右矢印クリック時
     rightArrows[index].addEventListener('click', () => {
         if (currentIndex < slides.length - 1) {
-            currentIndex++;  // インデックスを1増やす
+            currentIndex++;
         }
-        updateCarousel(carousel, currentIndex, slideWidth);
+        updateCarousel(carousel, slides, currentIndex);
     });
 
     // サムネイルのクリックイベント
-    const carouselThumbnails = document.querySelectorAll(`.thumbnails[data-carousel-id="${index + 1}"] .thumbnail`);
+    const carouselThumbnails = carousel.querySelectorAll('.thumbnails .thumbnail');
     carouselThumbnails.forEach((thumbnail, thumbnailIndex) => {
         thumbnail.addEventListener('click', () => {
             currentIndex = thumbnailIndex;
-            updateCarousel(carousel, currentIndex, slideWidth);
+            updateCarousel(carousel, slides, currentIndex);
         });
     });
 
-    // カルーセルを更新する関数
-    function updateCarousel(carousel, currentIndex, slideWidth) {
+    // カルーセル更新関数
+    function updateCarousel(carousel, slides, currentIndex) {
+        const slideWidth = slides[0].offsetWidth; // 各スライドの幅
         const newTransformValue = -currentIndex * slideWidth;
-        carousel.style.transform = `translateX(${newTransformValue}px)`;  // スライドを移動
-        
-        // サムネイルの選択状態を更新
+        carousel.style.transform = `translateX(${newTransformValue}px)`; // スライドを移動
+
+        // サムネイル選択状態の更新
         carouselThumbnails.forEach((thumbnail, index) => {
             if (index === currentIndex) {
                 thumbnail.classList.add('selected');
