@@ -107,6 +107,8 @@ header {
 .me {
     width: 100%;              /* 親要素の幅に合わせる */
     height: auto;           /* ビューポートの高さに合わせる */
+    margin-top: 100px;
+    margin-bottom: 100px;
 }
 
 .works {
@@ -126,7 +128,6 @@ header {
     justify-content: space-between;  /* 画像を横に等間隔に配置 */
     width: 70%;
     margin-bottom: 100px;  /* 下部のマージン */
-    margin: auto;
 }
 
 /* 画像のスタイル */
@@ -148,7 +149,8 @@ header {
     width: 500px;
     height: auto;
     text-align: center;        /* 中央揃え */
-    margin-bottom: 20px;      /* 下部のマージン */
+    margin-bottom: 50px;      /* 下部のマージン */
+    margin-top: 50px;      /* 下部のマージン */
 }
 
 /* ポップアップコンテンツのスタイル（初期状態で非表示） */
@@ -193,36 +195,33 @@ header {
     overflow: hidden;            /* 親要素を超えた部分を隠す */
 }
 
+/* カルーセルのスライドを横並びにする */
 .carousel {
-    display: flex;               /* 横並びにする */
-    transition: transform 0.5s ease; /* スライドのアニメーション */
+    display: flex;
+    transition: transform 0.5s ease;
 }
 
 .carousel-slide {
-    flex-shrink: 0;              /* 画像のサイズが縮小しないように */
-    width: 100%;                 /* 画像の幅を親要素に合わせる */
-    display: flex;                /* フレックスボックスを使用 */
-    align-items: center;          /* 縦方向中央揃え */
-    justify-content: center;       /* 横方向中央揃え */
+    min-width: 100%;
+    box-sizing: border-box;
 }
 
 .carousel-slide img {
-    width: auto;            /* 横幅を100%に設定 */
-    height: 550px;           /* 高さを親要素に合わせる */
+    height: 550px;
+    object-fit: cover;
 }
-
 
 .carousel-arrow {
     position: absolute;
-    top: 50%;                      /* 矢印を縦方向中央に配置 */
-    transform: translateY(-50%);   /* 中央揃え */
-    background-color: rgba(0, 0, 0, 0.5); /* 半透明の背景 */
-    color: white;                  /* 矢印の色 */
-    font-size: 30px;               /* 矢印のフォントサイズ */
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    font-size: 30px;
     padding: 10px;
     border: none;
-    cursor: pointer;              /* クリック可能なカーソル */
-    z-index: 10;                   /* 矢印が画像より前面に表示されるように設定 */
+    cursor: pointer;
+    z-index: 10;
 }
 
 .left-arrow {
@@ -241,12 +240,15 @@ header {
 }
 
 .thumbnail {
-    width: 60px;                   /* サムネイルの幅 */
-    height: 60px;                  /* サムネイルの高さ */
-    overflow: hidden;              /* サムネイル内の画像がはみ出さないようにする */
-    cursor: pointer;              /* クリック可能なカーソル */
-    border: 2px solid transparent; /* 選択されていない時のボーダー */
-    border-radius: 10px;           /* サムネイルを丸みをつける */
+    width: 60px;
+    height: 60px;
+    overflow: hidden;
+    cursor: pointer;
+    border-radius: 10px;
+}
+
+.thumbnail.selected {
+    border: 2px solid #00f;
 }
 
 .thumbnail img {
@@ -294,12 +296,13 @@ header {
 
 footer {
     background-color: #333; /* フッターの背景色 */
-    color: #fff;            /* フッターの文字色 */
+    color: #333;;            /* フッターの文字色 */
     text-align: center;     /* 中央揃え */
     padding: 20px;          /* パディング */
     position: relative;     /* 相対位置 */
     background-color: #fcebdd;
-    height: 600px; /* フッターの高さ */
+    justify-content: center;  /* 水平方向に中央揃え */
+    align-items: center;      /* 垂直方向に中央揃え */
 }
 
 button {
@@ -308,22 +311,39 @@ button {
     cursor: pointer;
 }
 
-#toggleContent {
-    margin-top: 20px;
-    padding: 20px;
+/* アコーディオン全体 */
+.accordion {
     width: 300px;
-    margin-left: auto;
-    margin-right: auto;
-    max-height: 0; /* 初期状態で非表示 */
-    overflow: hidden; /* 内容がはみ出さないように隠す */
-    transition: max-height 0.5s ease-out, padding 0.5s ease-out; /* max-heightとpaddingにトランジションを追加 */
-    padding-top: 0;
-    padding-bottom: 0;
+    margin: 0 auto;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 50px;
 }
 
-/* アクティブ状態 */
-#toggleContent.show {
-    max-height: 500px; /* アニメーションで展開される最大の高さ */
+.accordion-item {
+    border-top: 1px solid #ccc;
+}
+
+.accordion-button {
+    width: 100%;
+    padding: 15px;
+    background-color: #f1f1f1;
+    border: none;
+    text-align: left;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.accordion-button:hover {
+    background-color: #ddd;
+}
+
+.accordion-content {
+    padding: 0 15px;
+    display: none; /* 隠しておく */
+    background-color: #f9f9f9;
+    font-size: 14px;
 }
 
 @media screen and (max-width: 124px) {
@@ -337,6 +357,16 @@ button {
 
 footer h1 {
     font-size: 120px; /* フッターのタイトルのフォントサイズ */
-    color: #333;
-    margin: 0; /* マージンをリセット */
+    margin-top: 100px; /* マージンをリセット */
+}
+
+footer h4{
+    font-size: 40px;
+    margin-bottom: 30px;
+}
+
+.riddle {
+    width: 60%;              /* 親要素の幅に合わせる */
+    height: auto;           /* ビューポートの高さに合わせる */
+    margin: auto;
 }
