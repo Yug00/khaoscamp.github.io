@@ -30,6 +30,7 @@ body {
     transition: all 0.5s linear;
     background-image: url('image/loader.png');
     background-size: cover;
+    background-position: center;
 }
 
 .loader.loaded {
@@ -80,10 +81,12 @@ header {
     display: flex;             /* Flexboxレイアウトを使用 */
     justify-content: center;   /* テキスト群を中央に配置 */
     align-items: center;       /* 垂直方向に中央配置 */
-    height: 100vh;             /* ビューポートの高さに合わせる */
-    width: 100%; 
+    width: 100%; /* 親要素の幅を100%に設定 */
+    height: 100vh; /* 親要素の高さをビューポートの高さに合わせる */
     background-image: url('image/mainVisual.png');
-    background-size: cover;
+    background-position: center;
+    background-size: 100% auto;
+
 }
 
 #title {
@@ -161,8 +164,8 @@ header {
     position: fixed;
     top: 0;
     left: 0;
-    width: 80%;
-    height: 0%;
+    height: 100%;
+    width: 100%;
     background: rgba(0, 0, 0, 0.7);
     z-index: 999;
     transition: opacity 0.5s ease-in-out;
@@ -172,33 +175,37 @@ header {
 
 /* ポップアップ画像のスタイル */
 .popup-content {
+    display: flex;
+    justify-content: flex-start; /* 左寄せ */
     background-color: #fff;
     padding: 20px;
     border-radius: 10px;
     text-align: left;
     max-width: 80%;
     width: 80%;
+    height: 80%;
     position: relative;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 影をつけて立体感を出す */
 }
 
 /* ギャラリーの親コンテナ */
 .gallery-container {
     width: 80%;  /* コンテナの幅を100%に設定 */
-    overflow-x: scroll;  /* 横スクロールを有効にする */
-    scroll-snap-type: x mandatory;  /* スクロール時に1枚ずつスナップ */
+    overflow-x: scroll;         /* 横スクロールを有効にする */
+    overflow-y: hidden;         /* 縦スクロールを無効にする */
 }
 
 /* ギャラリー内の画像を横並びにする */
 .gallery {
-    display: flex; /* 横方向に並べる */
+    display: flex;              /* 画像を横並びにする */
+    gap: 10px;                  /* 画像間のスペース */
 }
 
 /* 画像のスタイル */
 .gallery img {
-    width: 200px;  /* 画像の幅（調整可能） */
-    height: auto;  /* 高さは自動調整 */
-    scroll-snap-align: center;  /* 画像がスクロールの中心にスナップ */
-    margin-right: 10px;  /* 画像間のスペース */
+    width: auto;               /* 画像の幅を指定 */
+    height: 100%;               /* 高さは自動調整 */
+    object-fit: cover;          /* 画像が親要素を覆うようにリサイズ */
 }
 
 /* スクロールバーのスタイル（オプション） */
@@ -213,6 +220,12 @@ header {
 
 .gallery-container::-webkit-scrollbar-thumb:hover {
     background-color: #555;  /* ホバー時の色 */
+}
+
+.caption {
+    color: #333; /* キャプションの文字色 */
+    margin-top: 10px; /* 上部のマージン */
+    width: 45%;
 }
 
 
