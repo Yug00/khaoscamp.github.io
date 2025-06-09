@@ -21,6 +21,7 @@ window.addEventListener("load", () => {
     //3秒後にローディング画面を非表示にする
     setTimeout(() => {
         loader.classList.add("loaded");
+        document.body.style.overflow = "auto";
     }, loadingTime);
 });
 
@@ -58,6 +59,7 @@ setTimeout(typeText, loadingTime);
 popupBtns.forEach((btn, index) => {
     btn.addEventListener('click', () => {
         popups[index].style.display = 'block'; // 対応するポップアップを表示
+        document.body.style.overflow = "hidden";
         setTimeout(() => {
             popups[index].style.opacity = 1; // フェードインして表示
         }, 10); // 少し遅らせてopacityを1に設定
@@ -68,8 +70,10 @@ popupBtns.forEach((btn, index) => {
 closeBtns.forEach((btn) => {
     btn.addEventListener('click', () => {
         btn.closest('.popup').style.opacity = 0; // opacityを0にしてフェードアウト
+        document.body.style.overflow = "auto";
         setTimeout(() => {
             btn.closest('.popup').style.display = 'none'; // 非表示にする
+            document.body.style.overflow = "auto";
         }, 1000); // opacityのアニメーションが終わった後に非表示にする
     });
 });
@@ -79,6 +83,7 @@ popups.forEach((popup) => {
     popup.addEventListener('click', (event) => {
         if (event.target === popup) { // 背景をクリックした場合
             popup.style.opacity = 0; // フェードアウト
+            document.body.style.overflow = "auto";
             setTimeout(() => {
                 popup.style.display = 'none'; // 非表示にする
             }, 1000); // opacityのアニメーションが終わった後に非表示にする
