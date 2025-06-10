@@ -107,8 +107,8 @@ header {
 .me {
     width: 100%;              /* 親要素の幅に合わせる */
     height: auto;           /* ビューポートの高さに合わせる */
-    margin-top: 100px;
-    margin-bottom: 100px;
+    margin-top: 150px;
+    margin-bottom: 150px;
 }
 
 .works {
@@ -190,25 +190,34 @@ header {
 
 .carousel-container {
     position: relative;
-    width: 70%;                  /* カルーセルの幅 */
+    width: 50%;                  /* カルーセルの幅 */
     margin: 20px auto;           /* センターに配置 */
     overflow: hidden;            /* 親要素を超えた部分を隠す */
+    display: flex;
+    align-items: center; /* 追加：縦方向中央揃え */
 }
 
 /* カルーセルのスライドを横並びにする */
 .carousel {
     display: flex;
     transition: transform 0.5s ease;
+    align-items: center; /* 追加：縦方向中央揃え */
+    height: 100%; /* 追加：親の高さに合わせる */
 }
 
 .carousel-slide {
     min-width: 100%;
     box-sizing: border-box;
+    display: flex;
+    justify-content: center; /* 横方向中央揃え */
+    align-items: center;     /* 縦方向中央揃え */
+    height: 100%; 
 }
 
 .carousel-slide img {
-    height: 550px;
-    object-fit: cover;
+    max-height: 100%;
+    max-width: 100%;
+    object-fit: contain; /* 画像全体を表示しつつ中央揃え */
 }
 
 .carousel-arrow {
@@ -222,6 +231,8 @@ header {
     border: none;
     cursor: pointer;
     z-index: 10;
+    border-radius: 10%; /* 丸い形にする */
+    transition: background-color 0.3s ease; /* ホバー時の背景色変化 */
 }
 
 .left-arrow {
@@ -234,9 +245,13 @@ header {
 
 .thumbnails {
     display: flex;
-    justify-content: center;       /* サムネイルを中央に配置 */
+    flex-direction: column;   /* ← ここを追加 */
+    justify-content: flex-start;
+    align-items: center; 
     gap: 10px;                     /* サムネイル間のスペース */
     margin-top: 10px;              /* 上部のマージン */
+    width: 5%;
+    margin-left: 1%;
 }
 
 .thumbnail {
@@ -264,11 +279,25 @@ header {
 
 .caption {
     color: #333; /* キャプションの文字色 */
-    margin-top: 10px; /* 上部のマージン */
-    width: 45%;
-    justify-content: flex-end;    /* 横方向右寄せ */
+    width: 44%;
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
 }
 
+.caption h3 {
+    font-size: 40px;              /* キャプションのタイトルのフォントサイズ */
+    margin-bottom: 20px;          /* タイトルと本文の間にスペースを追加 */
+    text-align: center;
+    
+}
+
+.caption p {
+    font-size: 20px;              /* キャプションの本文のフォントサイズ */
+    line-height: 1.5;             /* 行間を広げる */
+    color: #666;                  /* 本文の文字色 */
+    width: 80%;
+}
 
 /* 閉じるボタン */
 .close-btn {
@@ -317,7 +346,8 @@ button {
     margin: 0 auto;
     border: 1px solid #ccc;
     border-radius: 5px;
-    margin-bottom: 50px;
+    margin-bottom: 200px;
+    margin-top: 30px;
 }
 
 .accordion-item {
@@ -327,7 +357,7 @@ button {
 .accordion-button {
     width: 100%;
     padding: 15px;
-    background-color: #f1f1f1;
+    background-color: #fff;
     border: none;
     text-align: left;
     font-size: 16px;
@@ -350,7 +380,7 @@ button {
     font-size: 15px;
 }
 
-@media screen and (max-width: 124px) {
+@media screen and (max-width: 1024px) {
     .pc {
         display: none; /* パソコンではメッセージを非表示 */
     }
@@ -370,7 +400,7 @@ footer h4{
 }
 
 .riddle {
-    width: 60%;              /* 親要素の幅に合わせる */
+    width: 80%;              /* 親要素の幅に合わせる */
     height: auto;           /* ビューポートの高さに合わせる */
     margin: auto;
 }
