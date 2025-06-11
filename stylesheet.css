@@ -87,6 +87,11 @@ header {
 
 }
 
+.title {
+    width: 100%;              /* 親要素の幅に合わせる */
+    height: auto;           /* ビューポートの高さに合わせる */
+}
+
 #title {
     font-size: 120px;            /* タイトルのフォントサイズ */
     color: #ffffff;               /* タイトルの文字色 */
@@ -371,9 +376,16 @@ button {
 
 .accordion-content {
     padding: 0 15px;
-    display: none; /* 隠しておく */
     background-color: #f9f9f9;
     font-size: 20px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease, padding 0.5s ease;
+}
+
+.accordion-content.open {
+    max-height: 500px; /* 十分大きな値にする */
+    padding: 15px;
 }
 
 .accordion-content p {
@@ -403,4 +415,15 @@ footer h4{
     width: 80%;              /* 親要素の幅に合わせる */
     height: auto;           /* ビューポートの高さに合わせる */
     margin: auto;
+}
+
+.emerging {
+    opacity: 0; /* 初期状態で透明にする */
+    transform: translateY(100px); /* 少し下に配置して開始 */
+    transition: opacity 1s ease-out, transform 1s ease-out; /* アニメーションを追加 */
+}
+
+.visible {
+    opacity: 1; /* 表示する */
+    transform: translateY(0); /* 元の位置に戻す */
 }
