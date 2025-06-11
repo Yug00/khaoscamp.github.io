@@ -19,6 +19,8 @@ const leftArrows = document.querySelectorAll('.left-arrow');
 const rightArrows = document.querySelectorAll('.right-arrow');
 const thumbnails = document.querySelectorAll('.thumbnail');
 const accordionButtons = document.querySelectorAll('.accordion-button');
+const emerging = document.querySelectorAll('.emerging');
+
 
 //ページの読み込み完了時に処理を実行
 window.addEventListener("load", () => {
@@ -97,21 +99,13 @@ popups.forEach((popup) => {
 
 accordionButtons.forEach(button => {
     button.addEventListener('click', function () {
-        const content = this.nextElementSibling; // クリックしたボタンの次にあるコンテンツ
-        
-        // すべてのアコーディオンのコンテンツを閉じる
+        const content = this.nextElementSibling;
         document.querySelectorAll('.accordion-content').forEach(item => {
             if (item !== content) {
-                item.style.display = 'none';
+                item.classList.remove('open');
             }
         });
-
-        // クリックしたセクションを開閉する
-        if (content.style.display === 'block') {
-            content.style.display = 'none';
-        } else {
-            content.style.display = 'block';
-        }
+        content.classList.toggle('open');
     });
 });
 
@@ -161,3 +155,22 @@ carousels.forEach((carousel, index) => {
         });
     }
 });
+
+window.addEventListener('scroll', checkImages);
+
+function checkImages() {
+    // 各画像に対して表示されるべきかチェック
+    emerging.forEach(image => {
+        const imageTop = image.getBoundingClientRect().top; // 画像の上端位置
+        const imageBottom = image.getBoundingClientRect().bottom; // 画像の下端位置
+        const windowHeight = window.innerHeight; // ビューの高さ
+
+        // 画像がスクリーンに表示される範囲に入ったらvisibleクラスを追加
+        if (imageTop < windowHeight && imageBottom >= 0) {
+            image.classList.add('visible');
+        }
+    });
+}
+
+// ページ読み込み時にすぐに実行して初期状態を確認
+checkImages();
