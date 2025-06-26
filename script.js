@@ -130,8 +130,9 @@ carousels.forEach((carousel, index) => {
         updateCarousel(carousel, slides, currentIndex);
     });
 
-    // サムネイルのクリックイベント
-    const carouselThumbnails = carousel.querySelectorAll('.thumbnails .thumbnail');
+    // サムネイルのクリックイベント - 修正
+    const popup = carousel.closest('.popup');
+    const carouselThumbnails = popup.querySelectorAll('.thumbnails .thumbnail');
     carouselThumbnails.forEach((thumbnail, thumbnailIndex) => {
         thumbnail.addEventListener('click', () => {
             currentIndex = thumbnailIndex;
